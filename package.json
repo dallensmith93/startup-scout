@@ -1,15 +1,15 @@
 {
   "name": "startup-scout",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
   "workspaces": [
     "apps/*",
     "packages/*"
   ],
   "scripts": {
     "dev:web": "pnpm --filter web dev",
-    "dev:api": "pnpm --filter api dev",
-    "build": "pnpm -r build",
-    "test": "pnpm --filter api test"
+    "build:web": "pnpm --filter web build",
+    "dev:api": "uvicorn app.main:app --reload --app-dir apps/api",
+    "test:api": "python -m pytest apps/api/tests -q"
   }
 }

@@ -1,4 +1,4 @@
-﻿export type StartupStatus = "approved" | "review" | "rejected" | "expired";
+export type StartupStatus = "approved" | "review" | "rejected" | "expired";
 
 export type AiCategory =
   | "agent"

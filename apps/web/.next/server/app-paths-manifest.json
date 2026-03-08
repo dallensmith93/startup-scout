@@ -1,0 +1,8 @@
+{
+  "/page": "app/page.js",
+  "/discover/page": "app/discover/page.js",
+  "/rankings/page": "app/rankings/page.js",
+  "/outreach/page": "app/outreach/page.js",
+  "/hidden-startups/page": "app/hidden-startups/page.js",
+  "/resume-match/page": "app/resume-match/page.js"
+}

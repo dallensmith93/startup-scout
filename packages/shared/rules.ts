@@ -1,4 +1,4 @@
-﻿import type { StartupRecord, StartupStatus } from "./types";
+import type { StartupRecord, StartupStatus } from "./types";
 
 export function pickApplyLink(record: Pick<StartupRecord, "applyUrl" | "careersUrl" | "website">): string {
   return record.applyUrl || record.careersUrl || record.website;

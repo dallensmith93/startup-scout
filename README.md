@@ -1,98 +1,110 @@
-﻿# Startup Scout
+# Startup Scout - Phase 2
 
-Lean monorepo vertical slice for startup discovery.
+Startup Scout is an AI-powered startup discovery and targeting product for job seekers.
 
-## Structure
+It helps you:
+- discover high-signal startups
+- understand opportunity quality with explainable intelligence scores
+- generate founder outreach messages
+- surface hidden startup opportunities
+- evaluate resume-to-startup fit with concrete skill gaps
 
-- `apps/web` Vite + React + TypeScript UI
-- `apps/api` Node + TypeScript API
-- `packages/shared` shared types and deterministic business rules
+## Product Pages
 
-## Environment Variables
+- `/` Dashboard: high-priority opportunities and intelligence snapshots
+- `/discover`: searchable and filterable startup list
+- `/rankings`: transparent opportunity ranking table with score breakdowns
+- `/outreach`: editable outreach generator with tone selection
+- `/hidden-startups`: hidden signal feed with why-it-matters context
+- `/resume-match`: fit score and skill gap analyzer
+- `/startups/[id]`: startup detail profile
 
-API (`apps/api/.env.example`):
-- `API_PORT` default `3001`
-- `PRODUCTHUNT_TOKEN` optional in phase 1 (mock fallback used when missing)
-- `YC_SOURCE_URL` optional in phase 1 (mock fallback used when missing)
+## Architecture
 
-Web:
-- `VITE_API_URL` default `http://localhost:3001/api`
-  - set in `apps/web/.env` (or `.env.local`)
+### Frontend (Next.js + TypeScript)
+- Location: `apps/web`
+- Next.js App Router
+- Reusable UI primitives: shell, startup card, score badge
+- API client in `apps/web/lib/api.ts`
+- Premium dark UI with cohesive sidebar shell
 
-## Quickstart
-
-1. Install dependencies:
-
-```bash
-pnpm install
-```
-
-2. Start API:
-
-```bash
-pnpm --filter api dev
-```
-
-3. Start Web:
-
-```bash
-pnpm --filter web dev
-```
-
-4. Run ingest:
-
-```bash
-curl -X POST http://localhost:3001/api/ingest/run
-```
-
-5. Prune expired records:
-
-```bash
-curl -X POST http://localhost:3001/api/prune/expired
-```
-
-## End-to-End Flow
-
-1. `POST /api/ingest/run` pulls candidates from connectors and normalizes fields.
-2. API scoring applies deterministic rules: freshness, USA confidence, scam risk, AI relevance, hiring urgency.
-3. Status assignment:
-   - `approved` => appears on Dashboard
-   - `review` => appears on Review Queue
-   - `rejected` and `expired` => hidden from Dashboard
-4. Review actions:
-   - `POST /api/review/:id/approve`
-   - `POST /api/review/:id/reject`
-5. Apply button fallback order in UI:
-   - `applyUrl`
-   - `careersUrl`
-   - `website`
+### Backend (FastAPI + Python)
+- Location: `apps/api`
+- Entrypoint: `apps/api/app/main.py`
+- Routers:
+  - `startups`
+  - `rankings`
+  - `outreach`
+  - `hidden-startups`
+  - `resume-match`
+- Services:
+  - startup analyzer
+  - funding classifier
+  - hiring probability
+  - opportunity score
+  - outreach generator
+  - hidden startup detector
+  - founder signal tracker
+  - resume matcher
+  - market classifier
+- Mock data: `apps/api/app/data/mock_startups.json`
 
 ## API Endpoints
 
-- `GET /api/health`
-- `GET /api/startups`
-- `POST /api/ingest/run`
-- `POST /api/review/:id/approve`
-- `POST /api/review/:id/reject`
-- `POST /api/prune/expired`
+- `GET /health`
+- `GET /startups`
+- `GET /startups/{id}`
+- `GET /rankings`
+- `POST /outreach/generate`
+- `GET /hidden-startups`
+- `POST /resume-match/analyze`
+
+## Local Setup
+
+### 1) Frontend
+```bash
+pnpm install
+pnpm dev:web
+```
+Frontend runs on `http://localhost:3000`.
+
+### 2) Backend
+```bash
+python -m pip install -r apps/api/requirements.txt
+pnpm dev:api
+```
+Backend runs on `http://localhost:8000`.
+
+If needed, set frontend API URL:
+- `apps/web/.env.local`
+- `NEXT_PUBLIC_API_URL=http://localhost:8000`
 
 ## Tests
 
-Run API tests:
-
 ```bash
-pnpm --filter api test
+pnpm test:api
 ```
 
-## Troubleshooting
+Covers deterministic logic for:
+- opportunity scoring
+- funding classification
+- hidden startup detection
+- resume matching
 
-- Missing Product Hunt token:
-  - Phase 1 uses deterministic fallback candidates so ingest still works.
-- YC source unavailable:
-  - Fallback candidates are used to keep the vertical slice functional.
-- No startups returned:
-  - Run `POST /api/ingest/run` and confirm API is reachable at `VITE_API_URL`.
-- Stale records still present:
-  - Run `POST /api/prune/expired`.
-- Apply link missing:
-  - UI falls back `applyUrl -> careersUrl -> website`; ensure at least website exists.
+## Demo Flow
+
+1. Open dashboard to see priority opportunities.
+2. Go to Discover and filter by score/search.
+3. Open Rankings to explain scoring logic.
+4. Use Outreach generator and edit output.
+5. Show Hidden Startups to surface non-obvious plays.
+6. Run Resume Match to show fit score + skill gaps.
+7. Open Startup Detail to show AI intelligence and founder signals.
+
+## Roadmap
+
+- Live connectors for Product Hunt, YC, and hiring feeds
+- Saved job-search workspace and profile memory
+- Outreach history + experiment tracking
+- Deeper resume parsing and project evidence extraction
+- Team mode for recruiters and career coaches
