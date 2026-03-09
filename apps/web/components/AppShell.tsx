@@ -10,7 +10,10 @@ const navItems = [
   { href: "/rankings", label: "Rankings" },
   { href: "/outreach", label: "Outreach" },
   { href: "/hidden-startups", label: "Hidden Startups" },
-  { href: "/resume-match", label: "Resume Match" }
+  { href: "/resume-match", label: "Resume Match" },
+  { href: "/legitimacy", label: "Job Legitimacy" },
+  { href: "/recruiter-check", label: "Recruiter Check" },
+  { href: "/company-check", label: "Company Check" }
 ];
 
 export default function AppShell({ children }: { children: ReactNode }) {
@@ -19,7 +22,7 @@ export default function AppShell({ children }: { children: ReactNode }) {
     <div className="shell">
       <aside className="sidebar">
         <h1>Startup Scout</h1>
-        <p className="muted">Phase 2 Intelligence Suite</p>
+        <p className="muted">Phase 3 Legitimacy Intelligence</p>
         <nav>
           {navItems.map((item) => (
             <Link key={item.href} href={item.href} className={pathname === item.href ? "nav-link active" : "nav-link"}>

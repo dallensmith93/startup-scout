@@ -1,110 +1,140 @@
-# Startup Scout - Phase 2
+# Startup Scout (Phase 3)
 
-Startup Scout is an AI-powered startup discovery and targeting product for job seekers.
+Startup Scout is a job-search intelligence platform. In Phase 3, it adds **Job Legitimacy Checking** to help users evaluate risk and trust in job opportunities.
 
-It helps you:
-- discover high-signal startups
-- understand opportunity quality with explainable intelligence scores
-- generate founder outreach messages
-- surface hidden startup opportunities
-- evaluate resume-to-startup fit with concrete skill gaps
+## Phase 3 Capabilities
 
-## Product Pages
+- Analyze job postings for legitimacy signals
+- Detect scam patterns and suspicious language
+- Evaluate recruiter outreach quality and risk
+- Assess company surface credibility and domain consistency
+- Generate explainable legitimacy reports with balanced risk language
 
-- `/` Dashboard: high-priority opportunities and intelligence snapshots
-- `/discover`: searchable and filterable startup list
-- `/rankings`: transparent opportunity ranking table with score breakdowns
-- `/outreach`: editable outreach generator with tone selection
-- `/hidden-startups`: hidden signal feed with why-it-matters context
-- `/resume-match`: fit score and skill gap analyzer
-- `/startups/[id]`: startup detail profile
+## Key Pages
+
+- `/legitimacy`
+- `/recruiter-check`
+- `/company-check`
+- `/job-report/[id]`
+
+## Risk Framing
+
+This tool is a **risk analysis assistant**, not a certainty engine.
+It returns:
+- legitimacy score
+- scam risk score
+- confidence
+- trust signals
+- red flags
+- explanation summary
+- recommended action
+- follow-up questions
+
+Risk labels are intentionally balanced:
+- `low`
+- `moderate`
+- `elevated`
+- `high`
 
 ## Architecture
 
-### Frontend (Next.js + TypeScript)
-- Location: `apps/web`
-- Next.js App Router
-- Reusable UI primitives: shell, startup card, score badge
-- API client in `apps/web/lib/api.ts`
-- Premium dark UI with cohesive sidebar shell
+### Frontend (`apps/web`)
+- Next.js App Router + TypeScript
+- Premium dark shell
+- Phase 3 components under:
+  - `components/legitimacy`
+  - `components/recruiter`
+  - `components/company`
+  - `components/report`
+- API utilities:
+  - `lib/legitimacy-api.ts`
+  - `lib/legitimacy-types.ts`
 
-### Backend (FastAPI + Python)
-- Location: `apps/api`
-- Entrypoint: `apps/api/app/main.py`
+### Backend (`apps/api`)
+- FastAPI
 - Routers:
-  - `startups`
-  - `rankings`
-  - `outreach`
-  - `hidden-startups`
-  - `resume-match`
+  - `legitimacy.py`
+  - `recruiter_check.py`
+  - `company_check.py`
 - Services:
-  - startup analyzer
-  - funding classifier
-  - hiring probability
-  - opportunity score
-  - outreach generator
-  - hidden startup detector
-  - founder signal tracker
-  - resume matcher
-  - market classifier
-- Mock data: `apps/api/app/data/mock_startups.json`
+  - legitimacy analyzer
+  - scam signal engine
+  - posting quality checker
+  - recruiter message analyzer
+  - company surface checker
+  - domain consistency checker
+  - compensation risk checker
+  - legitimacy explainer
+- Pattern data:
+  - `app/data/suspicious_patterns.json`
+  - `app/data/trusted_patterns.json`
 
-## API Endpoints
+## Setup
 
-- `GET /health`
-- `GET /startups`
-- `GET /startups/{id}`
-- `GET /rankings`
-- `POST /outreach/generate`
-- `GET /hidden-startups`
-- `POST /resume-match/analyze`
+Install frontend deps:
 
-## Local Setup
-
-### 1) Frontend
 ```bash
 pnpm install
-pnpm dev:web
 ```
-Frontend runs on `http://localhost:3000`.
 
-### 2) Backend
+Install backend deps:
+
 ```bash
 python -m pip install -r apps/api/requirements.txt
+```
+
+Run backend:
+
+```bash
 pnpm dev:api
 ```
-Backend runs on `http://localhost:8000`.
 
-If needed, set frontend API URL:
+Run frontend:
+
+```bash
+pnpm dev:web
+```
+
+Default URLs:
+- Frontend: `http://localhost:3000`
+- Backend: `http://localhost:8000`
+
+Optional frontend API override:
 - `apps/web/.env.local`
 - `NEXT_PUBLIC_API_URL=http://localhost:8000`
 
 ## Tests
 
+Run backend tests:
+
 ```bash
 pnpm test:api
 ```
 
-Covers deterministic logic for:
-- opportunity scoring
-- funding classification
-- hidden startup detection
-- resume matching
+Phase 3 coverage includes:
+- legitimacy analyzer
+- scam signal engine
+- recruiter message analyzer
+- company surface checker
+- compensation risk checker
 
-## Demo Flow
+## Example Workflow
 
-1. Open dashboard to see priority opportunities.
-2. Go to Discover and filter by score/search.
-3. Open Rankings to explain scoring logic.
-4. Use Outreach generator and edit output.
-5. Show Hidden Startups to surface non-obvious plays.
-6. Run Resume Match to show fit score + skill gaps.
-7. Open Startup Detail to show AI intelligence and founder signals.
+1. Open `/legitimacy` and submit posting + recruiter/company details.
+2. Review score, risk level, confidence, trust signals, and red flags.
+3. Open `/job-report/[id]` for explainable evidence and follow-up questions.
+4. Run `/recruiter-check` on outreach text.
+5. Run `/company-check` for domain and surface credibility.
 
-## Roadmap
+## Limitations
 
-- Live connectors for Product Hunt, YC, and hiring feeds
-- Saved job-search workspace and profile memory
-- Outreach history + experiment tracking
-- Deeper resume parsing and project evidence extraction
-- Team mode for recruiters and career coaches
+- Heuristic system (deterministic), not a legal/compliance verdict
+- Uses mock and pattern-driven analysis in this phase
+- Should support decision-making, not replace human judgment
+
+## Future Roadmap
+
+- OSINT enrichments (domain age, public company registry checks)
+- Advanced message provenance and impersonation detection
+- Saved report history and collaboration notes
+- Evidence linking to external verification sources

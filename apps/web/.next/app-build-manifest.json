@@ -1,15 +1,35 @@
 {
   "pages": {
-    "/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/page.js"
-    ],
     "/layout": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/css/app/layout.css",
       "static/chunks/app/layout.js"
+    ],
+    "/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/page.js"
+    ],
+    "/recruiter-check/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/recruiter-check/page.js"
+    ],
+    "/legitimacy/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/legitimacy/page.js"
+    ],
+    "/company-check/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/company-check/page.js"
+    ],
+    "/hidden-startups/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/hidden-startups/page.js"
     ],
     "/discover/page": [
       "static/chunks/webpack.js",
@@ -26,15 +46,10 @@
       "static/chunks/main-app.js",
       "static/chunks/app/outreach/page.js"
     ],
-    "/hidden-startups/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/hidden-startups/page.js"
-    ],
-    "/resume-match/page": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/resume-match/page.js"
+      "static/chunks/app/_not-found/page.js"
     ]
   }
 }

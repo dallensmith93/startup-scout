@@ -4,8 +4,8 @@ import AppShell from "../components/AppShell";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: "Startup Scout Phase 2",
-  description: "AI-powered startup intelligence for job seekers"
+  title: "Startup Scout Phase 3",
+  description: "Startup intelligence platform with job legitimacy risk analysis"
 };
 
 export default function RootLayout({ children }: { children: ReactNode }) {

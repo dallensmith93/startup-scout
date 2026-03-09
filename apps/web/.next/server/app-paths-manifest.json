@@ -1,8 +1,11 @@
 {
+  "/_not-found/page": "app/_not-found/page.js",
   "/page": "app/page.js",
+  "/recruiter-check/page": "app/recruiter-check/page.js",
+  "/legitimacy/page": "app/legitimacy/page.js",
+  "/company-check/page": "app/company-check/page.js",
+  "/hidden-startups/page": "app/hidden-startups/page.js",
   "/discover/page": "app/discover/page.js",
   "/rankings/page": "app/rankings/page.js",
-  "/outreach/page": "app/outreach/page.js",
-  "/hidden-startups/page": "app/hidden-startups/page.js",
-  "/resume-match/page": "app/resume-match/page.js"
+  "/outreach/page": "app/outreach/page.js"
 }
