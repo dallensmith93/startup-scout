@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from fastapi import APIRouter, HTTPException
 
-from app.models import StartupRecord
-from app.services.startup_analyzer import analyze_all_startups
+from app.models import StartupFeedStatus, StartupRecord
+from app.services.startup_analyzer import analyze_all_startups, get_startup_feed_status
 
 router = APIRouter(prefix="/startups", tags=["startups"])
 
@@ -12,6 +12,11 @@ router = APIRouter(prefix="/startups", tags=["startups"])
 def list_startups() -> list[StartupRecord]:
     rows = analyze_all_startups()
     return sorted(rows, key=lambda x: x.score, reverse=True)
+
+
+@router.get("/meta", response_model=StartupFeedStatus)
+def startup_meta() -> StartupFeedStatus:
+    return get_startup_feed_status()
 
 
 @router.get("/{startup_id}", response_model=StartupRecord)

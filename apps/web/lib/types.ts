@@ -61,3 +61,13 @@ export type ResumeMatchResponse = {
   skillGaps: string[];
   recommendations: string[];
 };
+
+export type StartupFeedStatus = {
+  isLiveStartupsEnabled: boolean;
+  isLiveJobsEnabled: boolean;
+  liveStartupCount: number;
+  liveJobCompanyCount: number;
+  source: string;
+  reason: string;
+  fetchedAt: string;
+};

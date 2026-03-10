@@ -65,3 +65,13 @@ class ResumeMatchResponse(BaseModel):
     strengths: list[str]
     skillGaps: list[str]
     recommendations: list[str]
+
+
+class StartupFeedStatus(BaseModel):
+    isLiveStartupsEnabled: bool
+    isLiveJobsEnabled: bool
+    liveStartupCount: int
+    liveJobCompanyCount: int
+    source: str
+    reason: str
+    fetchedAt: str

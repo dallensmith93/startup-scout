@@ -5,6 +5,7 @@ import type {
   RankingItem,
   ResumeMatchRequest,
   ResumeMatchResponse,
+  StartupFeedStatus,
   StartupRecord
 } from "./types";
 
@@ -74,6 +75,16 @@ const demoHidden: HiddenSignal[] = [
   }
 ];
 
+const demoFeedStatus: StartupFeedStatus = {
+  isLiveStartupsEnabled: false,
+  isLiveJobsEnabled: false,
+  liveStartupCount: 0,
+  liveJobCompanyCount: 0,
+  source: "mock",
+  reason: "Live feeds are not configured in this environment.",
+  fetchedAt: new Date().toISOString()
+};
+
 async function tryFetch<T>(url: string, init?: RequestInit): Promise<T | null> {
   try {
     const res = await fetch(url, {
@@ -106,6 +117,7 @@ async function call<T>(path: string, init?: RequestInit, fallbackValue?: T): Pro
 
 export const api = {
   health: () => call<{ ok: boolean }>("/health", undefined, { ok: true }),
+  startupsMeta: () => call<StartupFeedStatus>("/startups/meta", undefined, demoFeedStatus),
   startups: () => call<StartupRecord[]>("/startups", undefined, demoStartups),
   startupById: async (id: string) => {
     const remote = await call<StartupRecord[] | StartupRecord>(

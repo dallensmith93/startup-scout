@@ -1,140 +1,102 @@
-# Startup Scout (Phase 3)
+# Startup Scout (Phase 7)
 
-Startup Scout is a job-search intelligence platform. In Phase 3, it adds **Job Legitimacy Checking** to help users evaluate risk and trust in job opportunities.
+Startup Scout is a **Proactive Job Search Assistant** that now treats networking as a first-class growth channel alongside applications.
 
-## Phase 3 Capabilities
+## Overview
 
-- Analyze job postings for legitimacy signals
-- Detect scam patterns and suspicious language
-- Evaluate recruiter outreach quality and risk
-- Assess company surface credibility and domain consistency
-- Generate explainable legitimacy reports with balanced risk language
+Phase 7 expands the operating loop from "apply better" to "create more interview paths" through targeted networking intelligence and guided execution.
 
-## Key Pages
+- Proactive next-action queue for applications and outreach
+- Opportunity prioritization with timing and impact signals
+- Weekly planning, execution tracking, and review loop
+- Pipeline analytics with bottleneck visibility
+- Explainable recommendations across all core decisions
 
-- `/legitimacy`
-- `/recruiter-check`
-- `/company-check`
-- `/job-report/[id]`
+## Networking Intelligence
 
-## Risk Framing
+Phase 7 introduces networking intelligence to help users identify and act on relationship-based opportunities, not just posted roles.
 
-This tool is a **risk analysis assistant**, not a certainty engine.
-It returns:
-- legitimacy score
-- scam risk score
-- confidence
-- trust signals
-- red flags
-- explanation summary
-- recommended action
-- follow-up questions
+- Contact and company signal scoring to highlight warm-path potential
+- Suggested outreach targets aligned to active priority roles
+- Follow-up timing cues to reduce dropped conversations
+- Relationship-aware task generation integrated with the weekly plan
 
-Risk labels are intentionally balanced:
-- `low`
-- `moderate`
-- `elevated`
-- `high`
+## Frontend Refresh Notes
 
-## Architecture
+- Refined dashboard and task surfaces to blend application and networking actions in one queue
+- Clearer priority and status treatments for faster triage
+- Updated page-level summaries to show outreach impact alongside funnel metrics
+- Continued Next.js App Router + TypeScript foundation with domain-based components
+
+## Architecture Summary
 
 ### Frontend (`apps/web`)
-- Next.js App Router + TypeScript
-- Premium dark shell
-- Phase 3 components under:
-  - `components/legitimacy`
-  - `components/recruiter`
-  - `components/company`
-  - `components/report`
-- API utilities:
-  - `lib/legitimacy-api.ts`
-  - `lib/legitimacy-types.ts`
+
+- Next.js App Router + TypeScript UI layer
+- Route pages for dashboard, priorities, planner, tasks, analytics, and weekly reports
+- Shared domain components under `components/*`
+- API client modules under `lib/*-api.ts`
 
 ### Backend (`apps/api`)
-- FastAPI
-- Routers:
-  - `legitimacy.py`
-  - `recruiter_check.py`
-  - `company_check.py`
-- Services:
-  - legitimacy analyzer
-  - scam signal engine
-  - posting quality checker
-  - recruiter message analyzer
-  - company surface checker
-  - domain consistency checker
-  - compensation risk checker
-  - legitimacy explainer
-- Pattern data:
-  - `app/data/suspicious_patterns.json`
-  - `app/data/trusted_patterns.json`
 
-## Setup
+- FastAPI service layer with deterministic, explainable outputs
+- Routers for dashboard, planner, priorities, tasks, analytics, and report flows
+- Services covering prioritization, planning, analytics, follow-ups, and networking signal logic
+- Pydantic models for typed request/response contracts
 
-Install frontend deps:
+## Setup and Tests
 
 ```bash
 pnpm install
-```
-
-Install backend deps:
-
-```bash
 python -m pip install -r apps/api/requirements.txt
 ```
 
-Run backend:
-
 ```bash
 pnpm dev:api
-```
-
-Run frontend:
-
-```bash
 pnpm dev:web
 ```
-
-Default URLs:
-- Frontend: `http://localhost:3000`
-- Backend: `http://localhost:8000`
-
-Optional frontend API override:
-- `apps/web/.env.local`
-- `NEXT_PUBLIC_API_URL=http://localhost:8000`
-
-## Tests
-
-Run backend tests:
 
 ```bash
 pnpm test:api
 ```
 
-Phase 3 coverage includes:
-- legitimacy analyzer
-- scam signal engine
-- recruiter message analyzer
-- company surface checker
-- compensation risk checker
+Frontend: `http://localhost:3000`  
+Backend: `http://localhost:8000`
 
-## Example Workflow
+Optional (`apps/web/.env.local`):
 
-1. Open `/legitimacy` and submit posting + recruiter/company details.
-2. Review score, risk level, confidence, trust signals, and red flags.
-3. Open `/job-report/[id]` for explainable evidence and follow-up questions.
-4. Run `/recruiter-check` on outreach text.
-5. Run `/company-check` for domain and surface credibility.
+```bash
+NEXT_PUBLIC_API_URL=http://localhost:8000
+```
 
-## Limitations
+Live startup + job feeds (`apps/api/.env`):
 
-- Heuristic system (deterministic), not a legal/compliance verdict
-- Uses mock and pattern-driven analysis in this phase
-- Should support decision-making, not replace human judgment
+```bash
+# optional startup source (JSON array or { "startups": [...] })
+LIVE_STARTUPS_URL=
 
-## Future Roadmap
+# live AI jobs via SerpAPI Google Jobs
+LIVE_JOB_PROVIDER=serpapi
+SERPAPI_KEY=
+LIVE_JOB_LOCATION=United States
+LIVE_JOB_RESULTS_PER_COMPANY=3
+```
 
-- OSINT enrichments (domain age, public company registry checks)
-- Advanced message provenance and impersonation detection
-- Saved report history and collaboration notes
-- Evidence linking to external verification sources
+Notes:
+- Without `SERPAPI_KEY`, Startup Scout falls back to local mock roles.
+- Live jobs are filtered to postings surfaced from `Indeed`, `LinkedIn`, and `Glassdoor` sources when available in results.
+
+## Workflow (Phase 7)
+
+1. Review search and networking health in `/dashboard`.
+2. Select top opportunities and outreach paths in `/priorities`.
+3. Commit the week in `/planner`.
+4. Execute applications and networking tasks in `/tasks`.
+5. Monitor conversion and outreach response in `/analytics`.
+6. Close the week and recalibrate in `/reports/weekly`.
+
+## Roadmap
+
+- Deeper relationship graphing and contact history context
+- More adaptive outreach sequencing from response behavior
+- Shared coaching views for guided accountability

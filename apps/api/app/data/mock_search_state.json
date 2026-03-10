@@ -1,0 +1,92 @@
+﻿{
+  "weekOf": "2026-03-10",
+  "targetApplicationsPerWeek": 5,
+  "targetFollowupsPerWeek": 6,
+  "targetOutreachPerWeek": 12,
+  "focusAreas": ["founding product roles", "high-signal AI infra startups", "warm intros"],
+  "applications": [
+    {
+      "id": "app_nimbus_ai",
+      "startupName": "Nimbus AI",
+      "roleTitle": "Founding Product Engineer",
+      "status": "saved",
+      "stage": "application",
+      "fitScore": 82,
+      "riskScore": 44,
+      "priorityScore": 88,
+      "lastTouchAt": "2026-03-06",
+      "dueDate": "2026-03-12",
+      "responseReceived": false,
+      "interviewScheduled": false,
+      "channel": "direct"
+    },
+    {
+      "id": "app_aurora_backend",
+      "startupName": "Aurora Backend",
+      "roleTitle": "Senior Backend Engineer",
+      "status": "tailoring",
+      "stage": "application",
+      "fitScore": 76,
+      "riskScore": 51,
+      "priorityScore": 80,
+      "lastTouchAt": "2026-03-03",
+      "dueDate": "2026-03-11",
+      "responseReceived": false,
+      "interviewScheduled": false,
+      "channel": "referral"
+    },
+    {
+      "id": "app_delta_platform",
+      "startupName": "Delta Platform",
+      "roleTitle": "Platform Engineer",
+      "status": "applied",
+      "stage": "follow-up",
+      "fitScore": 71,
+      "riskScore": 53,
+      "priorityScore": 72,
+      "lastTouchAt": "2026-02-27",
+      "dueDate": "2026-03-08",
+      "responseReceived": true,
+      "interviewScheduled": false,
+      "channel": "referral"
+    },
+    {
+      "id": "app_vertex_data",
+      "startupName": "Vertex Data",
+      "roleTitle": "Data Systems Engineer",
+      "status": "interview",
+      "stage": "screening",
+      "fitScore": 78,
+      "riskScore": 38,
+      "priorityScore": 84,
+      "lastTouchAt": "2026-02-26",
+      "dueDate": "2026-03-09",
+      "responseReceived": true,
+      "interviewScheduled": true,
+      "channel": "direct"
+    },
+    {
+      "id": "app_orbitgrade_pm",
+      "startupName": "OrbitGrade",
+      "roleTitle": "AI Product Manager",
+      "status": "applied",
+      "stage": "follow-up",
+      "fitScore": 68,
+      "riskScore": 59,
+      "priorityScore": 66,
+      "lastTouchAt": "2026-03-01",
+      "dueDate": "2026-03-10",
+      "responseReceived": false,
+      "interviewScheduled": false,
+      "channel": "direct"
+    }
+  ],
+  "outreach": [
+    {"date": "2026-03-04", "sent": 3, "responses": 1, "interviews": 0},
+    {"date": "2026-03-05", "sent": 2, "responses": 0, "interviews": 0},
+    {"date": "2026-03-06", "sent": 3, "responses": 1, "interviews": 1},
+    {"date": "2026-03-07", "sent": 1, "responses": 0, "interviews": 0},
+    {"date": "2026-03-08", "sent": 2, "responses": 0, "interviews": 0},
+    {"date": "2026-03-09", "sent": 1, "responses": 1, "interviews": 0}
+  ]
+}

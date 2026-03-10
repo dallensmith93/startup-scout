@@ -1,0 +1,129 @@
+{
+  "generatedForDate": "2026-03-10",
+  "contacts": [
+    {
+      "id": "contact-1",
+      "name": "Avery Kim",
+      "role": "Engineering Manager",
+      "company": "OrbitNest",
+      "stage": "warm",
+      "relationshipScore": 78,
+      "lastTouchDays": 6,
+      "notes": "Replied positively to prior intro note.",
+      "targetRole": "Founding Product Engineer",
+      "timeline": [
+        {
+          "date": "2026-02-18",
+          "title": "Intro accepted",
+          "detail": "Connected through mutual former teammate.",
+          "reason": "Introductions through trusted peers typically increase response quality."
+        },
+        {
+          "date": "2026-03-04",
+          "title": "Role relevance update sent",
+          "detail": "Shared concise project wins aligned to OrbitNest stack.",
+          "reason": "Role-specific relevance keeps warm contacts engaged."
+        }
+      ],
+      "messages": [
+        {
+          "date": "2026-03-04",
+          "channel": "email",
+          "summary": "Sent 5-line fit update with recent backend launch metrics.",
+          "outcome": "Positive acknowledgment",
+          "reason": "Concise updates with proof points are easier to reply to."
+        }
+      ]
+    },
+    {
+      "id": "contact-2",
+      "name": "Jordan Hale",
+      "role": "Founder",
+      "company": "SignalForge",
+      "stage": "new",
+      "relationshipScore": 52,
+      "lastTouchDays": 14,
+      "notes": "Met at meetup; asked for concise follow-up.",
+      "targetRole": "Backend Engineer",
+      "timeline": [
+        {
+          "date": "2026-02-22",
+          "title": "Meetup introduction",
+          "detail": "Discussed hiring plans and infra roadmap briefly.",
+          "reason": "In-person context creates an initial trust baseline."
+        }
+      ],
+      "messages": [
+        {
+          "date": "2026-02-24",
+          "channel": "linkedin",
+          "summary": "Sent brief thank-you and requested best follow-up channel.",
+          "outcome": "No response yet",
+          "reason": "New relationships often need one clear, low-friction follow-up."
+        }
+      ]
+    },
+    {
+      "id": "contact-3",
+      "name": "Riley Chen",
+      "role": "Talent Partner",
+      "company": "Nimbus Grid",
+      "stage": "active",
+      "relationshipScore": 84,
+      "lastTouchDays": 3,
+      "notes": "Requested updated resume this week.",
+      "targetRole": "Platform Engineer",
+      "timeline": [
+        {
+          "date": "2026-03-01",
+          "title": "Resume request",
+          "detail": "Asked for updated resume tailored to platform opening.",
+          "reason": "Explicit asks are strong buying signals in recruiting flows."
+        },
+        {
+          "date": "2026-03-07",
+          "title": "Resume delivered",
+          "detail": "Sent updated resume with platform reliability examples.",
+          "reason": "Fast turnaround sustains active pipeline momentum."
+        }
+      ],
+      "messages": [
+        {
+          "date": "2026-03-07",
+          "channel": "email",
+          "summary": "Shared tailored resume and asked for hiring timeline.",
+          "outcome": "Awaiting scheduling update",
+          "reason": "Pairing asset delivery with one clear question improves reply odds."
+        }
+      ]
+    },
+    {
+      "id": "contact-4",
+      "name": "Samir Patel",
+      "role": "Staff Engineer",
+      "company": "Delta Platform",
+      "stage": "warm",
+      "relationshipScore": 69,
+      "lastTouchDays": 9,
+      "notes": "Open to introductions if request is specific.",
+      "targetRole": "Senior Backend Engineer",
+      "timeline": [
+        {
+          "date": "2026-02-26",
+          "title": "Technical exchange",
+          "detail": "Compared data pipeline tradeoffs over chat.",
+          "reason": "Peer-to-peer technical conversations build trust quickly."
+        }
+      ],
+      "messages": [
+        {
+          "date": "2026-03-01",
+          "channel": "slack",
+          "summary": "Sent concise follow-up on backend scaling interest.",
+          "outcome": "Positive, asked for specific team targets",
+          "reason": "Specific asks reduce cognitive load for potential referrers."
+        }
+      ]
+    }
+  ]
+}

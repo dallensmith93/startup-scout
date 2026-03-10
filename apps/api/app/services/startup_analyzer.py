@@ -1,12 +1,14 @@
 from __future__ import annotations
 
+import os
 import json
 from pathlib import Path
 
-from app.models import Intelligence, StartupRecord
+from app.models import Intelligence, StartupFeedStatus, StartupRecord
 from app.services.founder_signal_tracker import extract_founder_signals
 from app.services.funding_classifier import classify_funding_stage
 from app.services.hiring_probability import estimate_hiring_probability
+from app.services.live_job_feed import fetch_latest_ai_jobs_by_company, load_live_startups
 from app.services.market_classifier import classify_market
 from app.services.opportunity_score import compute_opportunity_score
 
@@ -37,7 +39,23 @@ def _market_fit(category: str, tags: list[str]) -> int:
 
 
 def load_raw_startups() -> list[dict]:
+    live = load_live_startups()
+    if live:
+        return live
     return json.loads(DATA_FILE.read_text(encoding="utf-8"))
+
+
+def _merge_live_roles(base_roles: list[str], company_name: str, jobs_by_company: dict[str, list]) -> list[str]:
+    merged = list(base_roles)
+    seen = {item.lower() for item in merged}
+    for job in jobs_by_company.get(company_name.lower(), []):
+        role_line = f"{job.title} ({job.source})"
+        key = role_line.lower()
+        if key in seen:
+            continue
+        merged.append(role_line)
+        seen.add(key)
+    return merged[:8]
 
 
 def analyze_startup(raw: dict) -> StartupRecord:
@@ -83,4 +101,60 @@ def analyze_startup(raw: dict) -> StartupRecord:
 
 
 def analyze_all_startups() -> list[StartupRecord]:
-    return [analyze_startup(item) for item in load_raw_startups()]
+    raws = load_raw_startups()
+    rows = [analyze_startup(item) for item in raws]
+
+    live_jobs = fetch_latest_ai_jobs_by_company([row.name for row in rows])
+    if not live_jobs.jobs_by_company:
+        return rows
+
+    enriched: list[StartupRecord] = []
+    for row in rows:
+        enriched.append(
+            row.model_copy(
+                update={
+                    "openRoles": _merge_live_roles(
+                        row.openRoles,
+                        row.name,
+                        live_jobs.jobs_by_company,
+                    )
+                }
+            )
+        )
+    return enriched
+
+
+def get_startup_feed_status() -> StartupFeedStatus:
+    live_startups = load_live_startups()
+    live_jobs = fetch_latest_ai_jobs_by_company([item.get("name", "") for item in live_startups] if live_startups else [])
+    startup_source = os.getenv("LIVE_STARTUPS_URL", "").strip() or os.getenv("YC_SOURCE_URL", "").strip()
+    provider = os.getenv("LIVE_JOB_PROVIDER", "serpapi").strip().lower()
+    source = provider if provider and os.getenv("SERPAPI_KEY", "").strip() else "mock"
+
+    if startup_source:
+        source = f"{source}+startup-feed"
+
+    reason_parts: list[str] = []
+    if startup_source:
+        reason_parts.append(f"startup source configured ({len(live_startups)} startup records)")
+    else:
+        reason_parts.append("startup source not configured; using local startup dataset")
+
+    if provider == "serpapi" and os.getenv("SERPAPI_KEY", "").strip():
+        reason_parts.append(
+            f"live job provider active with {len(live_jobs.jobs_by_company)} startup-company matches"
+        )
+    else:
+        reason_parts.append("live job provider inactive or missing key; using static roles")
+
+    reason_parts.append(live_jobs.reason)
+
+    return StartupFeedStatus(
+        isLiveStartupsEnabled=bool(startup_source),
+        isLiveJobsEnabled=provider == "serpapi" and bool(os.getenv("SERPAPI_KEY", "").strip()),
+        liveStartupCount=len(live_startups),
+        liveJobCompanyCount=len(live_jobs.jobs_by_company),
+        source=source,
+        reason="; ".join(reason_parts),
+        fetchedAt=live_jobs.fetched_at,
+    )

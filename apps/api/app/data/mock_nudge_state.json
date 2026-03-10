@@ -1,0 +1,7 @@
+{
+  "preferences": {
+    "enabledCategories": ["follow_up", "quick_win", "risk_watch", "momentum"],
+    "intensity": "medium",
+    "minImportance": 45
+  }
+}

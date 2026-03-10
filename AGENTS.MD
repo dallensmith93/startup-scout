@@ -1,0 +1,15 @@
+FRONTEND VISUAL RULES:
+- premium dark theme
+- glassmorphism panels used selectively
+- gradient glow hero sections
+- split-view layouts where useful
+- sticky side detail panels
+- high typography contrast
+- subtle framer-motion transitions
+- no plain dashboard boxes
+- no cramped spacing
+- no default table-heavy UI unless absolutely needed
+- cards should feel elevated and tactile
+- use clean iconography
+- every major page should feel screenshot-worthy
+- design should feel like a real SaaS product, not an admin template
